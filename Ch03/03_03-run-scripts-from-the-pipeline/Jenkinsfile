@@ -15,7 +15,7 @@ pipeline {
         
         stage('Relative path') {
             steps {
-                bat(script: '.\fibonacci.bat %NUMBER%')
+                bat(script: 'fibonacci.bat %NUMBER%')
             }
         }
         stage('Full path') {
