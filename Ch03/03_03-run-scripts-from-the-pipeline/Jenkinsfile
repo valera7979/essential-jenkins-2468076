@@ -10,29 +10,23 @@ pipeline {
         timeout(time: 12, unit: 'HOURS')
         timestamps()
     }
-    triggers {
-        cron '@midnight'
-    }
+    
     stages {
-        stage('Make executable') {
-            steps {
-                bat('chmod +x ..\scripts\fibonacci.bat')
-            }
-        }
+        
         stage('Relative path') {
             steps {
-                bat("..\scripts\fibonacci.bat ${env.NUMBER}")
+                bat(script: 'scripts\\fibonacci.bat %NUMBER%')
             }
         }
         stage('Full path') {
             steps {
-                bat("${env.WORKSPACE}\scripts\fibonacci.bat ${env.NUMBER}")
+                bat(script: '${env.WORKSPACE}\\scripts\\fibonacci.bat ${env.NUMBER}')
             }
         }
         stage('Change directory') {
             steps {
-                dir("${env.WORKSPACE}/scripts"){
-                    bat("..\scripts\fibonacci.bat ${env.NUMBER}")
+                dir("${env.WORKSPACE}\\scripts"){
+                    bat(script: "fibonacci.bat ${env.NUMBER}")
                 }
             }
         }
